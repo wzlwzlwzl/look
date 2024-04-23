@@ -27,6 +27,11 @@
             height: auto;
             object-fit: fill;
         }
+        #viewer p {
+            text-align: center;
+            text-decoration: underline;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
@@ -37,7 +42,8 @@
     </div>
 </body>
 <script>
-    let imgArr = ['DSC02670.jpg', 'DSC02679.jpg', 'DSC02681.jpg', 'DSC02689.jpg', 'DSC02721.jpg', 'DSC02729.jpg',
+    let imgArr = ['DSC02666.jpg', 'DSC02670.jpg', 'DSC02679.jpg', 'DSC02681.jpg', 'DSC02689.jpg', 'DSC02721.jpg',
+        'DSC02729.jpg',
         'DSC02732.jpg', 'DSC02736.jpg', 'DSC02740.jpg', 'DSC02743.jpg', 'DSC02751.jpg', 'DSC02753.jpg',
         'DSC02758.jpg', 'DSC02759.jpg', 'DSC02768.jpg', 'DSC02774.jpg', 'DSC02808.jpg', 'DSC02845.jpg',
         'DSC02851.jpg', 'DSC02854.jpg', 'DSC02879.jpg', 'DSC02882.jpg', 'DSC02888.jpg', 'DSC02889.jpg',
@@ -51,7 +57,7 @@
         'DSC03907.jpg', 'DSC03909.jpg', 'DSC03917.jpg', 'DSC03921.jpg', 'DSC03922.jpg', 'DSC03924.jpg',
         'DSC03935.jpg', 'DSC03981.jpg'
     ]
-
+    var SRC = "https://e29472a0.img-master.pages.dev/"
     var div;
     div = document.getElementById('viewer');
     imgList()
@@ -98,26 +104,30 @@
         });
     }
 
-    function saveImage(url) {
+    function saveImage(i) {
+        let name = imgArr[i]
         var a = document.createElement('a');
-        a.href = url;
-        a.download = 'image.jpg'; // 设置下载文件名
+        a.href = SRC + item;
+        a.download = name; // 设置下载文件名
         var event = new MouseEvent('click');
-        // a.dispatchEvent(event); // 模拟点击下载
+        a.dispatchEvent(event); // 模拟点击下载
     }
 
     function imgList(params) {
         for (let item of imgArr) {
             // 创建一个新的图片元素
             var img = document.createElement('img');
+            var p = document.createElement('p');
             // 设置图片的 URL
-            img.src = 'https://e29472a0.img-master.pages.dev/' + 'min/'+ item;
-
+            img.src = SRC + 'min/' + item;
+            p.innerText = "下载原图" + item
+            p.index = i
             // 设置图片的描述文本
             // img.alt = '图片描述';
             // 找到要添加图片的 div 元素
             // 将图片元素添加到 div 中
             div.appendChild(img);
+            div.appendChild(p);
         }
     }
 
