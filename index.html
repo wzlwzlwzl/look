@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" ng-app="pharosApp">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -7,64 +8,121 @@
     <meta http-equiv="Expires" content="0" />
     <title>图片预览</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.css" integrity="sha512-eG8C/4QWvW9MQKJNw2Xzr0KW7IcfBSxljko82RuSs613uOAg/jHEeuez4dfFgto1u6SRI/nXmTr9YPCjs1ozBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js" integrity="sha512-EC3CQ+2OkM+ZKsM1dbFAB6OGEPKRxi6EDRnZW9ys8LghQRAq6cXPUgXCCujmDrXdodGXX9bqaaCRtwj4h4wgSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.css"
+        integrity="sha512-eG8C/4QWvW9MQKJNw2Xzr0KW7IcfBSxljko82RuSs613uOAg/jHEeuez4dfFgto1u6SRI/nXmTr9YPCjs1ozBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"
+        integrity="sha512-EC3CQ+2OkM+ZKsM1dbFAB6OGEPKRxi6EDRnZW9ys8LghQRAq6cXPUgXCCujmDrXdodGXX9bqaaCRtwj4h4wgSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
         #viewer {
             padding: 2%;
         }
+
         #viewer img {
             margin: 1%;
-            width: 22.5%;
-            height: 200px;
-            object-fit:fill;
+            width: auto;
+            max-width: 100%;
+            /* 确保图像不会超过容器的宽度 */
+            height: auto;
+            object-fit: fill;
         }
     </style>
-    <script>
-        function previewImg() {
-            var viewer = new Viewer(document.getElementById('viewer'), {
-                button: true,
-                inline: false,
-                zoomable: true,
-                title: true,
-                tooltip: true,
-                minZoomRatio: 0.5,
-                maxZoomRatio: 100,
-                movable: true,
-                interval: 2000,
-                navbar: true,
-                loading: true,
-                show: function () {
-                    viewer.update();
-                }
-            });
-            $("body").on("click", ".viewer-container", function (e) {
-                viewer.hide()
-            });
-            $("body").on("click", ".viewer-canvas", function (e) {
-                e.stopPropagation();
-            });
-            $("body").on("click", ".viewer-footer", function (e) {
-                e.stopPropagation();
-            });
-            $("body").on("click", ".viewer-button", function (e) {
-                e.stopPropagation();
-            });
-            $("body").on("click", ".viewer-tooltip", function (e) {
-                e.stopPropagation();
-            });
-            $("body").on("click", ".viewer-player", function (e) {
-                e.stopPropagation();
-            });
-        }
-    </script>
 </head>
+
 <body>
-  
-    <div id="viewer" onclick="previewImg()">
-        <img src="https://65b44dd8.img-master.pages.dev/DSC02689.jpg" />
-        <img src="https://65b44dd8.img-master.pages.dev/DSC02666.jpg" />
-        
+    <div id="viewer">
+        <!-- <img src="https://65b44dd8.img-master.pages.dev/DSC02689.jpg" /> -->
+        <!-- <img src="https://65b44dd8.img-master.pages.dev/DSC02666.jpg" /> -->
     </div>
 </body>
+<script>
+    let imgArr = ['DSC02670.jpg', 'DSC02679.jpg', 'DSC02681.jpg', 'DSC02689.jpg', 'DSC02721.jpg', 'DSC02729.jpg',
+        'DSC02732.jpg', 'DSC02736.jpg', 'DSC02740.jpg', 'DSC02743.jpg', 'DSC02751.jpg', 'DSC02753.jpg',
+        'DSC02758.jpg', 'DSC02759.jpg', 'DSC02768.jpg', 'DSC02774.jpg', 'DSC02808.jpg', 'DSC02845.jpg',
+        'DSC02851.jpg', 'DSC02854.jpg', 'DSC02879.jpg', 'DSC02882.jpg', 'DSC02888.jpg', 'DSC02889.jpg',
+        'DSC02891.jpg', 'DSC02912.jpg', 'DSC02913.jpg', 'DSC02964.jpg', 'DSC02971.jpg', 'DSC02973.jpg',
+        'DSC03024.jpg', 'DSC03028.jpg', 'DSC03053.jpg', 'DSC03060.jpg', 'DSC03136.jpg', 'DSC03171.jpg',
+        'DSC03176.jpg', 'DSC03193.jpg', 'DSC03219.jpg', 'DSC03227.jpg', 'DSC03330.jpg', 'DSC03336.jpg',
+        'DSC03353.jpg', 'DSC03399.jpg', 'DSC03414.jpg', 'DSC03445.jpg', 'DSC03446.jpg', 'DSC03452.jpg',
+        'DSC03477.jpg', 'DSC03506.jpg', 'DSC03516.jpg', 'DSC03526.jpg', 'DSC03586.jpg', 'DSC03603.jpg',
+        'DSC03609.jpg', 'DSC03624.jpg', 'DSC03626.jpg', 'DSC03654.jpg', 'DSC03692.jpg', 'DSC03758.jpg',
+        'DSC03812.jpg', 'DSC03851.jpg', 'DSC03868.jpg', 'DSC03887.jpg', 'DSC03889.jpg', 'DSC03895.jpg',
+        'DSC03907.jpg', 'DSC03909.jpg', 'DSC03917.jpg', 'DSC03921.jpg', 'DSC03922.jpg', 'DSC03924.jpg',
+        'DSC03935.jpg', 'DSC03981.jpg'
+    ]
+
+    var div;
+    div = document.getElementById('viewer');
+    imgList()
+
+
+    window.onload = function () {
+        previewImg()
+    }
+
+    function previewImg() {
+        var viewer = new Viewer(document.getElementById('viewer'), {
+            button: true,
+            inline: false,
+            zoomable: true,
+            title: true,
+            tooltip: true,
+            minZoomRatio: 0.5,
+            maxZoomRatio: 100,
+            movable: true,
+            interval: 2000,
+            navbar: true,
+            loading: true,
+            show: function () {
+                viewer.update();
+            }
+        });
+        $("body").on("click", ".viewer-container", function (e) {
+            viewer.hide()
+        });
+        $("body").on("click", ".viewer-canvas", function (e) {
+            e.stopPropagation();
+        });
+        $("body").on("click", ".viewer-footer", function (e) {
+            e.stopPropagation();
+        });
+        $("body").on("click", ".viewer-button", function (e) {
+            e.stopPropagation();
+        });
+        $("body").on("click", ".viewer-tooltip", function (e) {
+            e.stopPropagation();
+        });
+        $("body").on("click", ".viewer-player", function (e) {
+            e.stopPropagation();
+        });
+    }
+
+    function saveImage(url) {
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'image.jpg'; // 设置下载文件名
+        var event = new MouseEvent('click');
+        // a.dispatchEvent(event); // 模拟点击下载
+    }
+
+    function imgList(params) {
+        for (let item of imgArr) {
+            // 创建一个新的图片元素
+            var img = document.createElement('img');
+            // 设置图片的 URL
+            img.src = 'https://e29472a0.img-master.pages.dev/' + 'min/'+ item;
+
+            // 设置图片的描述文本
+            // img.alt = '图片描述';
+            // 找到要添加图片的 div 元素
+            // 将图片元素添加到 div 中
+            div.appendChild(img);
+        }
+    }
+
+    // 用法示例
+    // saveImage('https://example.com/your-image.jpg');
+</script>
+
 </html>
