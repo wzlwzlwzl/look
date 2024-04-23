@@ -7,20 +7,20 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>图片预览</title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.css"
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.css"
         integrity="sha512-eG8C/4QWvW9MQKJNw2Xzr0KW7IcfBSxljko82RuSs613uOAg/jHEeuez4dfFgto1u6SRI/nXmTr9YPCjs1ozBg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"
         integrity="sha512-EC3CQ+2OkM+ZKsM1dbFAB6OGEPKRxi6EDRnZW9ys8LghQRAq6cXPUgXCCujmDrXdodGXX9bqaaCRtwj4h4wgSQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <style>
         #viewer {
             padding: 2%;
         }
 
         #viewer img {
-            margin: 1%;
+            margin: 10px;
             width: auto;
             max-width: 100%;
             /* 确保图像不会超过容器的宽度 */
@@ -35,7 +35,7 @@
             text-align: center;
             text-decoration: underline;
             margin-bottom: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 45px;
         }
 
         .viewer-button {}
@@ -70,13 +70,14 @@
     imgList()
 
 
-    const lazyImages = document.querySelectorAll('img');
+    const lazyImages = document.querySelectorAll('img.lazy');
 
     // 设置一个触发器来检测是否图片进入了可视区域
     const lazyLoad = () => {
         lazyImages.forEach(image => {
             if (image.offsetTop < window.innerHeight + window.pageYOffset) {
-                image.src = image.dataset.src;
+                // console.log("image.dataset.src",image.dataset.src);
+                image.src = image.datasetSrc;
                 image.classList.remove('lazy');
             }
         });
@@ -92,42 +93,42 @@
         window.addEventListener('load', lazyLoad);
     }
 
-    function previewImg() {
-        var viewer = new Viewer(document.getElementById('viewer'), {
-            button: true,
-            inline: false,
-            zoomable: true,
-            title: true,
-            tooltip: true,
-            minZoomRatio: 0.5,
-            maxZoomRatio: 100,
-            movable: true,
-            interval: 2000,
-            navbar: true,
-            loading: true,
-            show: function () {
-                viewer.update();
-            }
-        });
-        $("body").on("click", ".viewer-container", function (e) {
-            viewer.hide()
-        });
-        $("body").on("click", ".viewer-canvas", function (e) {
-            e.stopPropagation();
-        });
-        $("body").on("click", ".viewer-footer", function (e) {
-            e.stopPropagation();
-        });
-        $("body").on("click", ".viewer-button", function (e) {
-            e.stopPropagation();
-        });
-        $("body").on("click", ".viewer-tooltip", function (e) {
-            e.stopPropagation();
-        });
-        $("body").on("click", ".viewer-player", function (e) {
-            e.stopPropagation();
-        });
-    }
+    // function previewImg() {
+    //     var viewer = new Viewer(document.getElementById('viewer'), {
+    //         button: true,
+    //         inline: false,
+    //         zoomable: true,
+    //         title: true,
+    //         tooltip: true,
+    //         minZoomRatio: 0.5,
+    //         maxZoomRatio: 100,
+    //         movable: true,
+    //         interval: 2000,
+    //         navbar: true,
+    //         loading: true,
+    //         show: function () {
+    //             viewer.update();
+    //         }
+    //     });
+    //     $("body").on("click", ".viewer-container", function (e) {
+    //         viewer.hide()
+    //     });
+    //     $("body").on("click", ".viewer-canvas", function (e) {
+    //         e.stopPropagation();
+    //     });
+    //     $("body").on("click", ".viewer-footer", function (e) {
+    //         e.stopPropagation();
+    //     });
+    //     $("body").on("click", ".viewer-button", function (e) {
+    //         e.stopPropagation();
+    //     });
+    //     $("body").on("click", ".viewer-tooltip", function (e) {
+    //         e.stopPropagation();
+    //     });
+    //     $("body").on("click", ".viewer-player", function (e) {
+    //         e.stopPropagation();
+    //     });
+    // }
 
     function saveImage(i) {
         let name = imgArr[i]
@@ -145,8 +146,9 @@
             var img = document.createElement('img');
             var p = document.createElement('p');
             // 设置图片的 URL
-            img.src = SRC + 'min/' + item;
-            p.innerText = "查看原图" + item
+            img.datasetSrc = SRC + 'min/' + item;
+            img.className = 'lazy'
+            p.innerText = "点击查看原图" + item
             p.index = i
             p.addEventListener('click', () => {
                 console.log(i);
