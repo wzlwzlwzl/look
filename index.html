@@ -27,7 +27,10 @@
             height: auto;
             object-fit: fill;
         }
+
         #viewer p {
+            color: #777;
+            font-size: 14px;
             text-align: center;
             text-decoration: underline;
             margin-bottom: 20px;
@@ -62,9 +65,11 @@
     div = document.getElementById('viewer');
     imgList()
 
-
     window.onload = function () {
-        previewImg()
+        console.log(1);
+        setTimeout(() => {
+            previewImg() 
+        }, 500);
     }
 
     function previewImg() {
@@ -107,14 +112,15 @@
     function saveImage(i) {
         let name = imgArr[i]
         var a = document.createElement('a');
-        a.href = SRC + item;
+        a.href = SRC + name;
         a.download = name; // 设置下载文件名
         var event = new MouseEvent('click');
         a.dispatchEvent(event); // 模拟点击下载
     }
 
     function imgList(params) {
-        for (let item of imgArr) {
+        for (let i = 0; i < imgArr.length; i++) {
+            let item = imgArr[i]
             // 创建一个新的图片元素
             var img = document.createElement('img');
             var p = document.createElement('p');
@@ -122,6 +128,10 @@
             img.src = SRC + 'min/' + item;
             p.innerText = "下载原图" + item
             p.index = i
+            p.addEventListener('click', () => {
+                console.log(i);
+                saveImage(i)
+            });
             // 设置图片的描述文本
             // img.alt = '图片描述';
             // 找到要添加图片的 div 元素
