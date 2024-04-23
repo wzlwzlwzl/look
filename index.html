@@ -15,12 +15,16 @@
         integrity="sha512-EC3CQ+2OkM+ZKsM1dbFAB6OGEPKRxi6EDRnZW9ys8LghQRAq6cXPUgXCCujmDrXdodGXX9bqaaCRtwj4h4wgSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <style>
+        body {
+            margin: 0;
+        }
+
         #viewer {
             /* padding: 2%; */
         }
 
         #viewer img {
-            margin: 10px;
+            margin: 15px;
             width: auto;
             max-width: 100%;
             /* 确保图像不会超过容器的宽度 */
@@ -49,22 +53,23 @@
     </div>
 </body>
 <script>
-    let imgArr = ['DSC02666.jpg', 'DSC02670.jpg', 'DSC02679.jpg', 'DSC02681.jpg', 'DSC02689.jpg', 'DSC02721.jpg',
-        'DSC02729.jpg',
-        'DSC02732.jpg', 'DSC02736.jpg', 'DSC02740.jpg', 'DSC02743.jpg', 'DSC02751.jpg', 'DSC02753.jpg',
-        'DSC02758.jpg', 'DSC02759.jpg', 'DSC02768.jpg', 'DSC02774.jpg', 'DSC02808.jpg', 'DSC02845.jpg',
-        'DSC02851.jpg', 'DSC02854.jpg', 'DSC02879.jpg', 'DSC02882.jpg', 'DSC02888.jpg', 'DSC02889.jpg',
-        'DSC02891.jpg', 'DSC02912.jpg', 'DSC02913.jpg', 'DSC02964.jpg', 'DSC02971.jpg', 'DSC02973.jpg',
-        'DSC03024.jpg', 'DSC03028.jpg', 'DSC03053.jpg', 'DSC03060.jpg', 'DSC03136.jpg', 'DSC03171.jpg',
-        'DSC03176.jpg', 'DSC03193.jpg', 'DSC03219.jpg', 'DSC03227.jpg', 'DSC03330.jpg', 'DSC03336.jpg',
-        'DSC03353.jpg', 'DSC03399.jpg', 'DSC03414.jpg', 'DSC03445.jpg', 'DSC03446.jpg', 'DSC03452.jpg',
-        'DSC03477.jpg', 'DSC03506.jpg', 'DSC03516.jpg', 'DSC03526.jpg', 'DSC03586.jpg', 'DSC03603.jpg',
-        'DSC03609.jpg', 'DSC03624.jpg', 'DSC03626.jpg', 'DSC03654.jpg', 'DSC03692.jpg', 'DSC03758.jpg',
-        'DSC03812.jpg', 'DSC03851.jpg', 'DSC03868.jpg', 'DSC03887.jpg', 'DSC03889.jpg', 'DSC03895.jpg',
-        'DSC03907.jpg', 'DSC03909.jpg', 'DSC03917.jpg', 'DSC03921.jpg', 'DSC03922.jpg', 'DSC03924.jpg',
-        'DSC03935.jpg', 'DSC03981.jpg'
+    let imgArr = [ 'DSC02666.jpg', 'DSC02670.jpg', 'DSC02679.jpg', 'DSC02681.jpg', 'DSC02689.jpg', 'DSC02695.jpg',
+        'DSC02721.jpg', 'DSC02729.jpg', 'DSC02732.jpg', 'DSC02736.jpg', 'DSC02740.jpg', 'DSC02743.jpg',
+        'DSC02751.jpg', 'DSC02753.jpg', 'DSC02758.jpg', 'DSC02759.jpg', 'DSC02768.jpg', 'DSC02770.jpg',
+        'DSC02774.jpg', 'DSC02808.jpg', 'DSC02845.jpg', 'DSC02851.jpg', 'DSC02854.jpg', 'DSC02879.jpg',
+        'DSC02882.jpg', 'DSC02888.jpg', 'DSC02889.jpg', 'DSC02891.jpg', 'DSC02909.jpg', 'DSC02912.jpg',
+        'DSC02913.jpg', 'DSC02941.jpg', 'DSC02946.jpg', 'DSC02958.jpg', 'DSC02964.jpg', 'DSC02971.jpg',
+        'DSC02973.jpg', 'DSC03024.jpg', 'DSC03028.jpg', 'DSC03053.jpg', 'DSC03060.jpg', 'DSC03085.jpg',
+        'DSC03136.jpg', 'DSC03171.jpg', 'DSC03176.jpg', 'DSC03193.jpg', 'DSC03219.jpg', 'DSC03227.jpg',
+        'DSC03279.jpg', 'DSC03330.jpg', 'DSC03336.jpg', 'DSC03353.jpg', 'DSC03399.jpg', 'DSC03414.jpg',
+        'DSC03445.jpg', 'DSC03446.jpg', 'DSC03452.jpg', 'DSC03477.jpg', 'DSC03506.jpg', 'DSC03516.jpg',
+        'DSC03526.jpg', 'DSC03586.jpg', 'DSC03603.jpg', 'DSC03609.jpg', 'DSC03624.jpg', 'DSC03626.jpg',
+        'DSC03654.jpg', 'DSC03692.jpg', 'DSC03758.jpg', 'DSC03812.jpg', 'DSC03851.jpg', 'DSC03868.jpg',
+        'DSC03887.jpg', 'DSC03889.jpg', 'DSC03895.jpg', 'DSC03907.jpg', 'DSC03909.jpg', 'DSC03917.jpg',
+        'DSC03921.jpg', 'DSC03922.jpg', 'DSC03924.jpg', 'DSC03935.jpg', 'DSC03950.jpg', 'DSC03952.jpg',
+        'DSC03981.jpg'
     ]
-    var SRC = "https://e29472a0.img-master.pages.dev/"
+    var SRC = "https://34d6a1e8.img-master.pages.dev/"
     var div;
     div = document.getElementById('viewer');
     imgList()
@@ -82,7 +87,7 @@
             }
         });
     };
-    
+
     // 初次加载页面时执行一次懒加载
     window.addEventListener('load', lazyLoad);
 
@@ -91,7 +96,7 @@
         window.addEventListener('scroll', lazyLoad);
         window.addEventListener('resize', lazyLoad);
 
-        
+
     }
 
     // function previewImg() {
