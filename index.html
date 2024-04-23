@@ -30,10 +30,14 @@
 
         #viewer p {
             color: #777;
-            font-size: 14px;
+            font-size: 28px;
             text-align: center;
             text-decoration: underline;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .viewer-button {
+
         }
     </style>
 </head>
@@ -65,12 +69,9 @@
     div = document.getElementById('viewer');
     imgList()
 
-    window.onload = function () {
-        console.log(1);
-        setTimeout(() => {
-            previewImg() 
-        }, 500);
-    }
+    // window.onload = function () {
+    //     previewImg()
+    // }
 
     function previewImg() {
         var viewer = new Viewer(document.getElementById('viewer'), {
@@ -126,7 +127,7 @@
             var p = document.createElement('p');
             // 设置图片的 URL
             img.src = SRC + 'min/' + item;
-            p.innerText = "下载原图" + item
+            p.innerText = "查看原图" + item
             p.index = i
             p.addEventListener('click', () => {
                 console.log(i);
