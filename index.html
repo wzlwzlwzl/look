@@ -16,7 +16,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <style>
         #viewer {
-            padding: 2%;
+            /* padding: 2%; */
         }
 
         #viewer img {
@@ -82,15 +82,16 @@
             }
         });
     };
-
+    
+    // 初次加载页面时执行一次懒加载
+    window.addEventListener('load', lazyLoad);
 
     window.onload = function () {
         // 在页面滚动和调整大小时执行懒加载
         window.addEventListener('scroll', lazyLoad);
         window.addEventListener('resize', lazyLoad);
 
-        // 初次加载页面时执行一次懒加载
-        window.addEventListener('load', lazyLoad);
+        
     }
 
     // function previewImg() {
