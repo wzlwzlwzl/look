@@ -36,9 +36,7 @@
             margin-bottom: 30px;
         }
 
-        .viewer-button {
-
-        }
+        .viewer-button {}
     </style>
 </head>
 
@@ -69,9 +67,28 @@
     div = document.getElementById('viewer');
     imgList()
 
-    // window.onload = function () {
-    //     previewImg()
-    // }
+
+    const lazyImages = document.querySelectorAll('img');
+
+    // 设置一个触发器来检测是否图片进入了可视区域
+    const lazyLoad = () => {
+        lazyImages.forEach(image => {
+            if (image.offsetTop < window.innerHeight + window.pageYOffset) {
+                image.src = image.dataset.src;
+                image.classList.remove('lazy');
+            }
+        });
+    };
+
+
+    window.onload = function () {
+        // 在页面滚动和调整大小时执行懒加载
+        window.addEventListener('scroll', lazyLoad);
+        window.addEventListener('resize', lazyLoad);
+
+        // 初次加载页面时执行一次懒加载
+        window.addEventListener('load', lazyLoad);
+    }
 
     function previewImg() {
         var viewer = new Viewer(document.getElementById('viewer'), {
