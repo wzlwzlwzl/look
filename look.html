@@ -176,7 +176,7 @@
         function saveImage(i) {
             let name = imgArr[i]
             var a = document.createElement('a');
-            a.href = SRC + name;
+            a.href = SRC + paramVal + '_raw/'+ name;
             a.download = name; // 设置下载文件名
             var event = new MouseEvent('click');
             a.dispatchEvent(event); // 模拟点击下载
