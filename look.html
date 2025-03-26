@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" ng-app="pharosApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>图片预览</title>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.css"
+        integrity="sha512-eG8C/4QWvW9MQKJNw2Xzr0KW7IcfBSxljko82RuSs613uOAg/jHEeuez4dfFgto1u6SRI/nXmTr9YPCjs1ozBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"
+        integrity="sha512-EC3CQ+2OkM+ZKsM1dbFAB6OGEPKRxi6EDRnZW9ys8LghQRAq6cXPUgXCCujmDrXdodGXX9bqaaCRtwj4h4wgSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #viewer {
+            /* padding: 2%; */
+        }
+
+        #viewer img {
+            margin: 15px;
+            width: auto;
+            max-width: 100%;
+            /* 确保图像不会超过容器的宽度 */
+            height: auto;
+            min-height: 300px;
+            object-fit: fill;
+        }
+
+        #viewer p {
+            color: #777;
+            font-size: 28px;
+            text-align: center;
+            text-decoration: underline;
+            margin-bottom: 10px;
+            margin-bottom: 45px;
+        }
+
+        .viewer-button {}
+    </style>
+</head>
+
+<body>
+    <div id="viewer">
+        <!-- <img src="https://65b44dd8.img-master.pages.dev/DSC02689.jpg" /> -->
+        <!-- <img src="https://65b44dd8.img-master.pages.dev/DSC02666.jpg" /> -->
+    </div>
+</body>
+<script>
+
+    // 获取URL中的查询参数
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    (async () => {
+
+
+        let imgArr = [
+            // 'DSC02666.jpg', 'DSC02670.jpg', 'DSC02679.jpg', 'DSC02681.jpg', 'DSC02689.jpg', 'DSC02695.jpg',
+            // 'DSC02721.jpg', 'DSC02729.jpg', 'DSC02732.jpg', 'DSC02736.jpg', 'DSC02740.jpg', 'DSC02743.jpg',
+            // 'DSC02751.jpg', 'DSC02753.jpg', 'DSC02758.jpg', 'DSC02759.jpg', 'DSC02768.jpg', 'DSC02770.jpg',
+            // 'DSC02774.jpg', 'DSC02808.jpg', 'DSC02845.jpg', 'DSC02851.jpg', 'DSC02854.jpg', 'DSC02879.jpg',
+            // 'DSC02882.jpg', 'DSC02888.jpg', 'DSC02889.jpg', 'DSC02891.jpg', 'DSC02909.jpg', 'DSC02912.jpg',
+            // 'DSC02913.jpg', 'DSC02941.jpg', 'DSC02946.jpg', 'DSC02958.jpg', 'DSC02964.jpg', 'DSC02971.jpg',
+            // 'DSC02973.jpg', 'DSC03024.jpg', 'DSC03028.jpg', 'DSC03053.jpg', 'DSC03060.jpg', 'DSC03085.jpg',
+            // 'DSC03136.jpg', 'DSC03171.jpg', 'DSC03176.jpg', 'DSC03193.jpg', 'DSC03219.jpg', 'DSC03227.jpg',
+            // 'DSC03279.jpg', 'DSC03330.jpg', 'DSC03336.jpg', 'DSC03353.jpg', 'DSC03399.jpg', 'DSC03414.jpg',
+            // 'DSC03445.jpg', 'DSC03446.jpg', 'DSC03452.jpg', 'DSC03477.jpg', 'DSC03506.jpg', 'DSC03516.jpg',
+            // 'DSC03526.jpg', 'DSC03586.jpg', 'DSC03603.jpg', 'DSC03609.jpg', 'DSC03624.jpg', 'DSC03626.jpg',
+            // 'DSC03654.jpg', 'DSC03692.jpg', 'DSC03758.jpg', 'DSC03812.jpg', 'DSC03851.jpg', 'DSC03868.jpg',
+            // 'DSC03887.jpg', 'DSC03889.jpg', 'DSC03895.jpg', 'DSC03907.jpg', 'DSC03909.jpg', 'DSC03917.jpg',
+            // 'DSC03921.jpg', 'DSC03922.jpg', 'DSC03924.jpg', 'DSC03935.jpg', 'DSC03950.jpg', 'DSC03952.jpg',
+            // 'DSC03981.jpg'
+        ]
+
+        let paramYear = getParameterByName('year')
+        let paramUrl = getParameterByName('url')
+        let paramVal = getParameterByName('val')
+        
+        console.log(paramYear,paramUrl,paramVal);
+        
+
+        await axios.get(`https://api.github.com/repos/wzlwzlwzl/img-${paramYear}/contents/${paramVal}_raw?ref=main`).then((res) => {
+            console.log(res);
+            for (let item of res.data) {
+                if (item['type'] == 'file') {
+                    imgArr.push(item['name'])
+                }
+            }
+        })
+
+        console.log('完成');
+
+
+        var SRC = `https://${paramUrl}/${paramVal}_`
+        var div;
+        div = document.getElementById('viewer');
+        imgList()
+
+
+        const lazyImages = document.querySelectorAll('img.lazy');
+
+        // 设置一个触发器来检测是否图片进入了可视区域
+        const lazyLoad = () => {
+            lazyImages.forEach(image => {
+                if (image.offsetTop < window.innerHeight + window.pageYOffset) {
+                    // console.log("image.dataset.src",image.dataset.src);
+                    image.src = image.datasetSrc;
+                    image.classList.remove('lazy');
+                }
+            });
+        };
+
+        // 初次加载页面时执行一次懒加载
+        // window.addEventListener('load', lazyLoad);
+
+        // window.onload = function () {
+        console.log('window.onload');
+        lazyLoad()
+        // 在页面滚动和调整大小时执行懒加载
+        window.addEventListener('scroll', lazyLoad);
+        window.addEventListener('resize', lazyLoad);
+
+
+        // }
+
+        // function previewImg() {
+        //     var viewer = new Viewer(document.getElementById('viewer'), {
+        //         button: true,
+        //         inline: false,
+        //         zoomable: true,
+        //         title: true,
+        //         tooltip: true,
+        //         minZoomRatio: 0.5,
+        //         maxZoomRatio: 100,
+        //         movable: true,
+        //         interval: 2000,
+        //         navbar: true,
+        //         loading: true,
+        //         show: function () {
+        //             viewer.update();
+        //         }
+        //     });
+        //     $("body").on("click", ".viewer-container", function (e) {
+        //         viewer.hide()
+        //     });
+        //     $("body").on("click", ".viewer-canvas", function (e) {
+        //         e.stopPropagation();
+        //     });
+        //     $("body").on("click", ".viewer-footer", function (e) {
+        //         e.stopPropagation();
+        //     });
+        //     $("body").on("click", ".viewer-button", function (e) {
+        //         e.stopPropagation();
+        //     });
+        //     $("body").on("click", ".viewer-tooltip", function (e) {
+        //         e.stopPropagation();
+        //     });
+        //     $("body").on("click", ".viewer-player", function (e) {
+        //         e.stopPropagation();
+        //     });
+        // }
+
+        function saveImage(i) {
+            let name = imgArr[i]
+            var a = document.createElement('a');
+            a.href = SRC + name;
+            a.download = name; // 设置下载文件名
+            var event = new MouseEvent('click');
+            a.dispatchEvent(event); // 模拟点击下载
+        }
+
+        function imgList(params) {
+            for (let i = 0; i < imgArr.length; i++) {
+                let item = imgArr[i]
+                // 创建一个新的图片元素
+                var img = document.createElement('img');
+                var p = document.createElement('p');
+                // 设置图片的 URL
+                img.datasetSrc = SRC + 'min/' + item;
+                img.className = 'lazy'
+                p.innerText = "点击查看原图" + item
+                p.index = i
+                p.addEventListener('click', () => {
+                    console.log(i);
+                    saveImage(i)
+                });
+                // 设置图片的描述文本
+                // img.alt = '图片描述';
+                // 找到要添加图片的 div 元素
+                // 将图片元素添加到 div 中
+                div.appendChild(img);
+                div.appendChild(p);
+            }
+        }
+
+        // 用法示例
+        // saveImage('https://example.com/your-image.jpg');
+    })()
+</script>
+
+</html>
